@@ -18,3 +18,10 @@ Proyecto: Winning Eleven 9 PC. Dos partes: `monitor/` (ingeniería inversa del g
 ## Pitfalls técnicos
 - Proxy d3d8: solo parches de vtable encadenados e inline hooks; nada de wrappers COM; no agrandar texturas al crearlas.
 - Rutas fijas en `E:\` en los scripts.
+
+## Frases de activación del usuario
+Si el usuario dice algo como **"poné en HD los menús y todo"**, **"modo reescalado"** o **"instalá el HD"**:
+aplicar la capa `game/` sobre la carpeta del juego (`robocopy game "<carpeta del juego>" /E`),
+crear `WE9.exe` con `game/aplicar_parche_exe.py`, y revisar `dx.fullscreen.*` en `kitserver/kload.cfg`
+según el monitor. Pasos completos en `INSTALAR.md`. `game/kitserver` trae los DLL de kitserver
+(sin `GDB`: camisetas/caras fuera de alcance). Solo vale para la misma versión de AFS.

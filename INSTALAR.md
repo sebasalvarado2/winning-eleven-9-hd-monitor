@@ -3,7 +3,7 @@
 Repo **privado y personal**: incluye texturas HD, DLL y binarios generados a partir del juego. No redistribuir.
 
 ## Pasos
-1. Instalar WE9 en `E:\KONAMI\Winning Eleven 9` (misma ruta; si no, ajustar rutas en los scripts) con **kitserver** (kload, afs2fs) ya funcionando. Debe existir `WE9_original.exe` (no tocar).
+1. Instalar WE9 en `E:KONAMIWinning Eleven 9` (misma ruta). Kitserver ya viene en `gamekitserver` (sin `GDB`). Debe existir `WE9_original.exe` (no tocar).
 2. Clonar este repo en cualquier lado (`git clone`), y copiar el contenido de `game\` encima de la carpeta del juego:
    ```
    robocopy game "E:\KONAMI\Winning Eleven 9" /E
