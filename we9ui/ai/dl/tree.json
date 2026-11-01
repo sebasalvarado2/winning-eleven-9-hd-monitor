@@ -1,0 +1,114 @@
+[
+  {
+    "name": ".github",
+    "path": ".github",
+    "sha": "18557d65b8abea07f73d7529c87a4d8fa0f48730",
+    "size": 0,
+    "url": "https://api.github.com/repos/xinntao/Real-ESRGAN-ncnn-vulkan/contents/.github?ref=master",
+    "html_url": "https://github.com/xinntao/Real-ESRGAN-ncnn-vulkan/tree/master/.github",
+    "git_url": "https://api.github.com/repos/xinntao/Real-ESRGAN-ncnn-vulkan/git/trees/18557d65b8abea07f73d7529c87a4d8fa0f48730",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/xinntao/Real-ESRGAN-ncnn-vulkan/contents/.github?ref=master",
+      "git": "https://api.github.com/repos/xinntao/Real-ESRGAN-ncnn-vulkan/git/trees/18557d65b8abea07f73d7529c87a4d8fa0f48730",
+      "html": "https://github.com/xinntao/Real-ESRGAN-ncnn-vulkan/tree/master/.github"
+    }
+  },
+  {
+    "name": ".gitignore",
+    "path": ".gitignore",
+    "sha": "732221b4693df876ca39b5fefe97d849aa980de1",
+    "size": 304,
+    "url": "https://api.github.com/repos/xinntao/Real-ESRGAN-ncnn-vulkan/contents/.gitignore?ref=master",
+    "html_url": "https://github.com/xinntao/Real-ESRGAN-ncnn-vulkan/blob/master/.gitignore",
+    "git_url": "https://api.github.com/repos/xinntao/Real-ESRGAN-ncnn-vulkan/git/blobs/732221b4693df876ca39b5fefe97d849aa980de1",
+    "download_url": "https://raw.githubusercontent.com/xinntao/Real-ESRGAN-ncnn-vulkan/master/.gitignore",
+    "type": "file",
+    "_links": {
+      "self": "https://api.github.com/repos/xinntao/Real-ESRGAN-ncnn-vulkan/contents/.gitignore?ref=master",
+      "git": "https://api.github.com/repos/xinntao/Real-ESRGAN-ncnn-vulkan/git/blobs/732221b4693df876ca39b5fefe97d849aa980de1",
+      "html": "https://github.com/xinntao/Real-ESRGAN-ncnn-vulkan/blob/master/.gitignore"
+    }
+  },
+  {
+    "name": ".gitmodules",
+    "path": ".gitmodules",
+    "sha": "f929c7f140ecbb2d5b2a3ccae8d3f7dd34e0fa61",
+    "size": 171,
+    "url": "https://api.github.com/repos/xinntao/Real-ESRGAN-ncnn-vulkan/contents/.gitmodules?ref=master",
+    "html_url": "https://github.com/xinntao/Real-ESRGAN-ncnn-vulkan/blob/master/.gitmodules",
+    "git_url": "https://api.github.com/repos/xinntao/Real-ESRGAN-ncnn-vulkan/git/blobs/f929c7f140ecbb2d5b2a3ccae8d3f7dd34e0fa61",
+    "download_url": "https://raw.githubusercontent.com/xinntao/Real-ESRGAN-ncnn-vulkan/master/.gitmodules",
+    "type": "file",
+    "_links": {
+      "self": "https://api.github.com/repos/xinntao/Real-ESRGAN-ncnn-vulkan/contents/.gitmodules?ref=master",
+      "git": "https://api.github.com/repos/xinntao/Real-ESRGAN-ncnn-vulkan/git/blobs/f929c7f140ecbb2d5b2a3ccae8d3f7dd34e0fa61",
+      "html": "https://github.com/xinntao/Real-ESRGAN-ncnn-vulkan/blob/master/.gitmodules"
+    }
+  },
+  {
+    "name": "LICENSE",
+    "path": "LICENSE",
+    "sha": "e8ea6d78d0c63ae4038b7169e5d029e67ce9673b",
+    "size": 2228,
+    "url": "https://api.github.com/repos/xinntao/Real-ESRGAN-ncnn-vulkan/contents/LICENSE?ref=master",
+    "html_url": "https://github.com/xinntao/Real-ESRGAN-ncnn-vulkan/blob/master/LICENSE",
+    "git_url": "https://api.github.com/repos/xinntao/Real-ESRGAN-ncnn-vulkan/git/blobs/e8ea6d78d0c63ae4038b7169e5d029e67ce9673b",
+    "download_url": "https://raw.githubusercontent.com/xinntao/Real-ESRGAN-ncnn-vulkan/master/LICENSE",
+    "type": "file",
+    "_links": {
+      "self": "https://api.github.com/repos/xinntao/Real-ESRGAN-ncnn-vulkan/contents/LICENSE?ref=master",
+      "git": "https://api.github.com/repos/xinntao/Real-ESRGAN-ncnn-vulkan/git/blobs/e8ea6d78d0c63ae4038b7169e5d029e67ce9673b",
+      "html": "https://github.com/xinntao/Real-ESRGAN-ncnn-vulkan/blob/master/LICENSE"
+    }
+  },
+  {
+    "name": "README.md",
+    "path": "README.md",
+    "sha": "b7701f625beecc0644d1ccc9fc1306fd65f5f3e3",
+    "size": 6052,
+    "url": "https://api.github.com/repos/xinntao/Real-ESRGAN-ncnn-vulkan/contents/README.md?ref=master",
+    "html_url": "https://github.com/xinntao/Real-ESRGAN-ncnn-vulkan/blob/master/README.md",
+    "git_url": "https://api.github.com/repos/xinntao/Real-ESRGAN-ncnn-vulkan/git/blobs/b7701f625beecc0644d1ccc9fc1306fd65f5f3e3",
+    "download_url": "https://raw.githubusercontent.com/xinntao/Real-ESRGAN-ncnn-vulkan/master/README.md",
+    "type": "file",
+    "_links": {
+      "self": "https://api.github.com/repos/xinntao/Real-ESRGAN-ncnn-vulkan/contents/README.md?ref=master",
+      "git": "https://api.github.com/repos/xinntao/Real-ESRGAN-ncnn-vulkan/git/blobs/b7701f625beecc0644d1ccc9fc1306fd65f5f3e3",
+      "html": "https://github.com/xinntao/Real-ESRGAN-ncnn-vulkan/blob/master/README.md"
+    }
+  },
+  {
+    "name": "images",
+    "path": "images",
+    "sha": "66cca129cef1f600f7ccb07e689e9797d9c1731c",
+    "size": 0,
+    "url": "https://api.github.com/repos/xinntao/Real-ESRGAN-ncnn-vulkan/contents/images?ref=master",
+    "html_url": "https://github.com/xinntao/Real-ESRGAN-ncnn-vulkan/tree/master/images",
+    "git_url": "https://api.github.com/repos/xinntao/Real-ESRGAN-ncnn-vulkan/git/trees/66cca129cef1f600f7ccb07e689e9797d9c1731c",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/xinntao/Real-ESRGAN-ncnn-vulkan/contents/images?ref=master",
+      "git": "https://api.github.com/repos/xinntao/Real-ESRGAN-ncnn-vulkan/git/trees/66cca129cef1f600f7ccb07e689e9797d9c1731c",
+      "html": "https://github.com/xinntao/Real-ESRGAN-ncnn-vulkan/tree/master/images"
+    }
+  },
+  {
+    "name": "src",
+    "path": "src",
+    "sha": "2b012d929527ba09bd298d5124eb344918a9d150",
+    "size": 0,
+    "url": "https://api.github.com/repos/xinntao/Real-ESRGAN-ncnn-vulkan/contents/src?ref=master",
+    "html_url": "https://github.com/xinntao/Real-ESRGAN-ncnn-vulkan/tree/master/src",
+    "git_url": "https://api.github.com/repos/xinntao/Real-ESRGAN-ncnn-vulkan/git/trees/2b012d929527ba09bd298d5124eb344918a9d150",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/xinntao/Real-ESRGAN-ncnn-vulkan/contents/src?ref=master",
+      "git": "https://api.github.com/repos/xinntao/Real-ESRGAN-ncnn-vulkan/git/trees/2b012d929527ba09bd298d5124eb344918a9d150",
+      "html": "https://github.com/xinntao/Real-ESRGAN-ncnn-vulkan/tree/master/src"
+    }
+  }
+]
