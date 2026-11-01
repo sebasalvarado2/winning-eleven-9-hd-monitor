@@ -1,0 +1,61 @@
+LISTA DE PRUEBAS EN JUEGO (kitserver\hd_menus). Para quitar una pantalla que salga mal: borrar menu_<N>.bin de e_text.afs Y S_TEXT.AFS.
+OK   251 + 253  menu principal                                   confirmado 31/10
+MAL  270        titulo (2x sale ampliado y cortado)               retirado (necesita parche de codigo)
+
+PENDIENTE DE VER EN EL JUEGO (instalado 31/10 noche, fondos 512 -> 1024):
+ 245            Creditos (4 fondos)                    Menu principal > Opciones/Creditos al final
+ 120-125        Fondos de COPAS (Africa, America, Asia, Europa, Inter, Konami)   Menu > Copa
+ 132-138        Fondos de LIGAS (Ing, Fra, Ale, Hol, Inter, Ita, Esp)            Menu > Liga
+ 139-146        Master League (descanso, copas, ligas, etc.)                      Menu > Master League
+ 147            Fondo de 'Partido' (ts_match_bg)                                   Menu > Partido > Exhibicion
+
+PENDIENTE (instalado 31/10 noche, iconos e encabezados de la entrada 253 a 2x):
+ 253 (iconos 32x32 -> 64x64, encabezado, pc_keycon)   Ver: Partido > MODE SELECT (iconos pelota/flechas/guante) y
+                                                       Player Settings (encabezado metalico, siluetas de joystick, flechas)
+                                                       Si algo sale chico, cortado o corrido: avisar cual -> se revierte con menu253_antes_iconos_*.bak
+
+PENDIENTE (lote 2, instalado 31/10 noche; 8bpp >=256 -> 2x):
+ 296,297,298,301,302,303   Entrenamiento (fondos, menus, imagenes de ejercicios)   Menu > Training
+ 264                       Liga online (fondo ol_bg1 y 512x512 recurso 51)          Menu > Network
+ 91                        Formaciones (form_map)                                   Partido > Formacion / editar formacion
+ 118                       Resultado (result 256)                                   Al terminar un partido
+ 247                       pc_keycon (teclado/joystick)                             Opciones > configuracion de botones
+ (302: solo e_text; la version S_TEXT de 302 no tiene la tabla esperada)
+
+PENDIENTE (lote 3, 31/10 noche: hojas de iconos de 4 bits a 2x, con el codificador nuevo enc4.py; 16 colores, sin dithering):
+ 253 (rec 19 mo_main00, 27 tex_uni, 28 plsl_icon)   Player Settings (L1/R1/SELECT/HOME/AWAY), seleccion de equipos
+ 113 (game_01, pause)   Durante el partido: pausa y numeros
+ 149,197,198 (lc_icon, mo_main00, tex_uni) / 249 / 257 / 244 / 255 / 119   Iconos de varias pantallas (seleccion de plantilla/uniforme, tarjetas)
+ 296,297,298 (menus de entrenamiento: botones/iconos 256 y 128)
+ Respaldos del 253: menu253_antes_4bpp_{en,es}.bak (E:\WE9_UI)
+ Si algo sale chico/cortado: avisar cual entrada -> borro menu_<N>.bin de ambas carpetas.
+
+PENDIENTE (lote 4, 31/10 19:55, 4bpp a 2x):
+ 19..88   Iconos de camisetas chicas (uni_l_*, 128 -> 256)   Al elegir equipo / uniforme en Partido
+ 9        Editor de banderas (flagedit_parts, iconos)        Edit > editar equipo/bandera
+ 11       Botines (shoes_00-04)                              Edit > jugador > botines
+ 18       edit_00                                            Edit
+ORDEN SUGERIDO PARA PROBAR (de mas a menos importante): 1) menu principal ya OK; 2) Partido > Mode Select > Exhibicion >
+ elegir equipos (iconos de camisetas); 3) un partido corto (HUD: entrada 113); 4) Player Settings; 5) Copa/Liga/Master League; 6) Training; 7) Creditos.
+Anotar cuales salen mal (ampliado / cortado / negro / colores raros).
+
+== 31/10 21:30 RETIRADAS (hojas de sprites/iconos 2x via afs2fs se rompen: recortes con rect fijo) ==
+Movidas a E:\WE9_UI\afs2fs_hojas_retiradas: 113 (HUD game_01/pause: radar y iconos deformados en el partido), 149,197,198,249,257,244,255,119,
+ 9,11,18, 19..88 (camisetas chicas), 118 (resultado), 247 (pc_keycon). 296/297/298 reconstruidos solo con 8bpp.
+Quedan en hd_menus solo fondos y pantallas completas (251,253 texto/fondos/anillo, 245, 120-125, 132-147, 264, 91, 296-303, 301...).
+Los sprites/iconos/HUD ahora los maneja el PROXY d3d8 (IA 4x + suavizado de texto): ver d3d8hd.
+
+== 31/10 22:30 PANTALLAS DE ARRANQUE Y TITULO (proxy + afs2fs) ==
+ Proxy (d3d8hd): titulo 512x512 -> 2x IA (ini sizes=512x512:2), logo JFA y aviso legal de adidas 256x256 -> 4x IA (hash en d3d8hd\hd).
+ afs2fs: hd_menus\{e_text.afs,S_TEXT.AFS}\menu_269.bin = logo KONAMI (sub 2, 512x256 4bpp) a 1024x512 IA (16 colores). Si sale recortado/ampliado: borrar menu_269.bin (ambas carpetas).
+ Probar: cerrar y abrir el juego; mirar logos de arranque, 'PRESS ANY BUTTON' y el titulo.
+
+== 31/10 22:55 FONDOS DE MENU REHECHOS CON IA (afs2fs, 2x) ==
+ E:\WE9_UI\tools\ai_backgrounds.py: 68 recursos 512x512 (34 imagenes unicas) -> Real-ESRGAN x4 -> 2x -> 8bpp 256 colores con dithering. Entradas: 251 (menu principal: 4), 253 (rec 20/21: fondos del 9; el texto Verdana y el anillo se conservan), 245 (creditos), 120-125 (copas), 132-147 (ligas, ML, partido), 264 (online).
+ Respaldo de los fondos anteriores (interpolacion): E:\WE9_UI\afs2fs_fondos_previos (solo e_text).
+ Probar: menu principal, Copa, Liga, Master League, Creditos, Network. Si alguno sale raro: avisar la pantalla.
+
+== 31/10 23:35 BINDSWAP + ETIQUETAS (proxy v3.5) ==
+ Confirmado por el usuario: titulo, logos de arranque (KONAMI/JFA/adidas) y logo de repeticiones 'quedaron joya'.
+ Nuevo: etiquetas de nombre (256x64 'KATZER', 'ROYSKOOP', 'CLANTZGAN', 'EL PRESIDENTE') y similares se detectan y suavizan EN VIVO (ini labels=1). Hojas de botones del control (128x64) con IA por bindswap.
+ Probar: nombres de jugadores sobre la cancha/seleccion, botones L1 R1 L2 R2 en menus. Si algo sale raro: [hd] labels=0 en d3d8hd.ini (o bindswap=0).
