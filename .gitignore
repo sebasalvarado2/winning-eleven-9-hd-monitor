@@ -1,20 +1,4 @@
-# binarios y builds
-*.exe
-*.dll
-*.obj
-*.bak
-build/
-# assets del juego / generados
-*.afs
-*.AFS
-*.tga
-*.bin
-dump/
-hd/
-png_e*/
-e_text/
-ai/
-logs/
-*.log
-New
 __pycache__/
+*.log
+monitor/logs/
+we9ui/d3dhook/build/

@@ -7,7 +7,7 @@ Dos proyectos independientes sobre **Winning Eleven 9 (PC)**:
 | [`monitor/`](monitor/) | Ingeniería inversa del gameplay: monitor/logger de estados en memoria, escritor de memoria, tablas de jugadas/habilidades y todas las notas de REA + Ghidra (`monitor/notas/re_notas.md`, vueltas 1–144). |
 | [`we9ui/`](we9ui/) | Menús/HUD/logos en HD sin tocar archivos originales: herramientas de AFS, reemplazo vía kitserver `afs2fs`, y un proxy `d3d8.dll` que cambia texturas por versiones HD (IA) y suaviza texto. |
 
-> **Este repo NO incluye assets del juego** (AFS, texturas extraídas, dumps, TGA HD, ejecutables). Todo eso se regenera localmente desde tu propia copia del juego.
+> Este repo es privado y contiene los resultados completos (texturas HD, DLL, datos extraídos) para replicar la instalación; ver `INSTALAR.md`.
 
 ## Requisitos generales
 - Windows 10/11, copia propia de WE9 en `E:\KONAMI\Winning Eleven 9` (+ kitserver/kload y afs2fs para `we9ui`).
@@ -17,6 +17,7 @@ Dos proyectos independientes sobre **Winning Eleven 9 (PC)**:
 ## Empezar
 - Monitor → [`monitor/README.md`](monitor/README.md)
 - WE9UI → [`we9ui/README.md`](we9ui/README.md)
+- **Instalar en otra PC → [`INSTALAR.md`](INSTALAR.md)**
 - Contexto para asistentes de IA (Claude Code) → [`CLAUDE.md`](CLAUDE.md)
 
 ## Layout esperado en tu PC
