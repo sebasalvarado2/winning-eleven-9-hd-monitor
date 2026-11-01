@@ -1,0 +1,21 @@
+d3d8.dll base=0x724a0000 size=0x2e000
+SetTransform 0x7223c880 (rva 0xffd9c880): 8b ff 55 8b ec 6a ff 68 58 02 29 72 64 a1 00 00 00 00 50 83 ec 58 a1 a4 60 29 72 33 c5 89 45 ec 53 56 57 50 8d 45 f4 64
+DrawPrimitiveUP 0x72240500 (rva 0xffda0500): 8b ff 55 8b ec 6a ff 68 c8 09 29 72 64 a1 00 00 00 00 50 83 ec 14 53 56 57 a1 a4 60 29 72 33 c5 50 8d 45 f4 64 a3 00 00
+SetViewport 0x7223cf20 (rva 0xffd9cf20): eb f9 55 8b ec 6a ff 68 38 03 29 72 64 a1 00 00 00 00 50 83 ec 10 53 56 57 a1 a4 60 29 72 33 c5 50 8d 45 f4 64 a3 00 00
+SetVertexShader 0x722436c0 (rva 0xffda36c0): eb f9 55 8b ec 6a ff 68 40 0d 29 72 64 a1 00 00 00 00 50 83 ec 0c 53 56 57 a1 a4 60 29 72 33 c5 50 8d 45 f4 64 a3 00 00
+vtable del juego 0x929b720 [37]=0x7223c880 en d3d8.dll
+[72]=0x724a2040 en d3d8.dll
+mod d3d8.dll 0x724a0000 size 0x2e000
+mod kload.DLL 0x10000000 size 0x2d000
+mod kserv.dll 0x6500000 size 0xc2000
+mod bserv.dll 0x66d0000 size 0x5e000
+mod fserv.dll 0x6730000 size 0x66000
+mod lodmixer.dll 0x160000 size 0xf000
+mod stadium.dll 0x6af0000 size 0x67000
+mod dxtools.dll 0x170000 size 0xf000
+mod bootserv.dll 0x6b60000 size 0x52000
+mod network.dll 0x1d0000 size 0x17000
+mod speeder.dll 0x3ef0000 size 0x12000
+mod afs2fs.dll 0x6df0000 size 0x25000
+mod d3d8.dll 0x721f0000 size 0xb7000
+mod d3d8thk.dll 0x734d0000 size 0x7000
