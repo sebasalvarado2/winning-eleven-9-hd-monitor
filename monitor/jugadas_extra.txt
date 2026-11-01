@@ -1,0 +1,70 @@
+﻿# ============================================================
+#  Jugadas ocultas extra para WE9
+# ============================================================
+#  Una línea por jugador y jugada:   ID | jugada
+#  El ID es el que muestra el WE9 editor.
+#
+#  Jugadas conocidas:
+#    elastica         elástica (variante 1, como L.Suárez / Chakra)
+#    elastica2        elástica (variante 2, como Garoto / PogDance)
+#    sin_elastica     le quita la elástica aunque la tenga de fábrica
+#
+#  Jugadas ocultas que todavía no sabemos qué son (para probar):
+#    oculta_020000   oculta_040000   oculta_080000   oculta_100000
+#    y para quitarlas: sin_oculta_020000, sin_oculta_040000, etc.
+#
+#  Avanzado (bits a mano): 20+XXXXXXXX / 20-XXXXXXXX / 24+XXXXXXXX / 24-XXXXXXXX
+#    (prende/apaga bits en el campo +0x20 o +0x24 de los datos del jugador)
+#
+#  Después de editar, ejecuta aplicar_jugadas.bat con el juego CERRADO.
+# ============================================================
+
+942 | elastica2           # Blue
+942 | oculta_020000       # Blue
+942 | oculta_040000       # Blue
+942 | oculta_080000       # Blue
+942 | oculta_100000       # Blue
+942 | 24+00000001         # Blue
+942 | 24+40000000         # Blue
+942 | 24+80000000         # Blue
+1432 | elastica2          # Nyjah
+1432 | oculta_020000      # Nyjah
+1432 | oculta_040000      # Nyjah
+1432 | oculta_080000      # Nyjah
+1432 | oculta_100000      # Nyjah
+1432 | 24+00000001        # Nyjah
+1432 | 24+40000000        # Nyjah
+1432 | 24+80000000        # Nyjah
+1321 | 24+80000000        # Uub
+1321 | 24+40000000        # Uub
+1321 | oculta_080000      # Uub
+1321 | oculta_020000      # Uub
+1321 | elastica2          # Uub
+943 | 24+80000000         # El CHavO
+943 | 24+40000000         # El CHavO
+943 | 24+00000001         # El CHavO
+943 | oculta_100000       # El CHavO
+943 | oculta_080000       # El CHavO
+943 | oculta_040000       # El CHavO
+943 | oculta_020000       # El CHavO
+943 | elastica2           # El CHavO
+240 | elastica2           # Prometheus
+240 | oculta_020000       # Prometheus
+240 | oculta_040000       # Prometheus
+240 | oculta_080000       # Prometheus
+240 | oculta_100000       # Prometheus
+240 | 24+00000001         # Prometheus
+240 | 24+40000000         # Prometheus
+240 | 24+80000000         # Prometheus
+1504 | 24+40000000        # Rin
+1504 | 24+80000000        # Rin
+1504 | elastica2          # Rin
+1504 | oculta_040000      # Rin
+1504 | oculta_080000      # Rin
+3200 | elastica2          # Cyclops
+3200 | oculta_040000      # Cyclops
+3200 | oculta_080000      # Cyclops
+3200 | oculta_100000      # Cyclops
+3200 | 24+00000001        # Cyclops
+3200 | 24+40000000        # Cyclops
+3200 | 24+80000000        # Cyclops

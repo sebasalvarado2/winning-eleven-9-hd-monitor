@@ -1,0 +1,13 @@
+# hashes (prefijos) de texturas de interfaz con tamano compartido con camisetas, que se mejoran por bindswap
+96e832
+1d6802e4
+3b88380fd593fc39
+5cbba2dff4c2c7ad
+749afd89726674b0
+879cba19b7c49040
+a1199285ea1e65a3
+c60471d7067c1fda
+e01b7d194c1854eb
+0d6e7f6a1d109edb
+37eaade0d90f7dd0
+5180e10c3e7bbd7f

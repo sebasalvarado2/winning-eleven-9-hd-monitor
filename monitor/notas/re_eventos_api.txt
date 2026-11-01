@@ -1,0 +1,28 @@
+﻿## FUN_005be600 (1)
+  undefined4 param_1,int param_2,undefined4 param_3) { FUN_0067dd70(param_1,0xff,(param_2 == 0x20001) + 0x4000000,param_3  <- 0x5be600
+## FUN_005be7b0 (9)
+    <- 0x679640 0x67c7d0
+  bVar19,bVar1,0,10,0  <- 0x7ba500
+  *(undefined1 *)(param_1 + 0x40),*(undefined1 *)(param_1 + 0x3f),0,10,1  <- 0x7ffc30
+  *(byte *)(in_EAX + 0x40),*(byte *)(in_EAX + 0x3f),0,10,1  <- 0x7ffc60
+  undefined4 param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4) { FUN_0067df80(param_1,param_2,param_3,param_4  <- 0x5be7b0
+  uVar21,bVar1,0,10,0  <- 0x7b7fa0
+  cVar4,bVar8,0,10,0  <- 0x7ba500
+## FUN_005be7d0 (2)
+    <- 0x67c7d0
+  undefined4 param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4) { FUN_0067df00(param_1,param_2,param_3,param_4  <- 0x5be7d0
+## FUN_005be7f0 (3)
+    <- 0x67c7d0
+  undefined4 param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4) { FUN_0067ddf0(param_1,param_2,param_3,param_4  <- 0x5be7f0
+## FUN_005be810 (2)
+    <- 0x67c7d0
+  undefined4 param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4) { FUN_0067dcf0(param_1,param_2,param_3,param_4  <- 0x5be810
+## FUN_005be830 (6)
+    <- 0x679640 0x67c7d0
+  *(undefined1 *)(unaff_EDI + 0x40),*(undefined1 *)(unaff_EDI + 0x3f), 0x4000000,10,0  <- 0x67f080
+  undefined4 param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4) { FUN_0067dd70(param_1,param_2,param_3,param_4  <- 0x5be830
+## FUN_005be8b0 (5)
+    <- 0x67c7d0
+  undefined4 param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4) { FUN_0067e000(param_1,param_2,param_3,param_4  <- 0x5be8b0
+## FUN_005be5b0 (1)
+  param_1,0x10003,10  <- 0x67d5e0

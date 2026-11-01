@@ -1,0 +1,13 @@
+﻿# Variables del tiro que se muestran en la pestaña "Tiro al ángulo"
+# nombre | dirección | tipo (byte, short, int, float)
+# Encontradas en el código del tiro (WE9.exe 0x65A3xx):
+Potencia / efecto del tiro | 0x3BE1420 | short
+Tiro especial activo | 0x3B8E883 | byte
+Estado de pelota parada | 0x3B8E88D | byte
+
+# Encontradas en la funcion que lanza la pelota (WE9.exe 0x778400):
+Punto calculado X (no es la pelota) | 0x3BE0FD8 | float
+Punto calculado altura | 0x3BE0FDC | float
+Punto calculado Z | 0x3BE0FE0 | float
+Pelota X (probable) | 0xC20834, 468 | float
+Pelota Z (probable) | 0xC20834, B68 | float

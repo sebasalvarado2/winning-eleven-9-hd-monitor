@@ -1,0 +1,290 @@
+=====================================================================
+  WE9 MOD - CONTEXTO DE LA SESION (26/10/2026, actualizado 27/10/2026)
+  Para retomar otro dia: pasale este archivo a Claude y decile
+  "lee CONTEXTO_SESION.txt del Monitor y seguimos".
+=====================================================================
+
+---------------------------------------------------------------------
+1) QUE HICIMOS HOY (RESUMEN)
+---------------------------------------------------------------------
+- Instalar_64bits.bat (en la carpeta del juego): registra el juego en
+  Windows sin usar el instalador. Se auto-eleva (pide admin).
+  Bug arreglado: la ruta terminaba en "\" y rompia las comillas.
+
+- WE9Monitor (carpeta Monitor): programa que lee/escribe la memoria del
+  juego en tiempo real. Se compila con compilar.bat (hay que CERRAR el
+  monitor antes de compilar, si no el .exe esta bloqueado).
+  El juego corre como administrador, asi que el monitor tambien.
+
+- Descubrimos por que algunos jugadores hacen la ELASTICA y otras
+  jugadas ocultas: estan ligadas al ADN (= el slot / ID original del
+  jugador antes de editarlo), NO a las stats. Por eso PogDance (ADN
+  Rivelino) la hace y Lobo Simpson (ADN comun) no la hacia.
+
+- Hicimos un PARCHE al WE9.exe para poder darle/sacarle jugadas ocultas
+  a cualquier jugador, con on/off desde el monitor.
+
+- Nombramos las 7 jugadas ocultas extra (ver punto 3).
+
+- Pestaña Video: reescalador de resolucion interna (2560x1440 fijo por
+  defecto, boton de ultrawide aparte).
+
+- Ordenamos las pestañas: Jugadas ocultas | Video | Investigacion
+  (en Investigacion quedaron las herramientas de busqueda: Movimientos,
+  Tiro al angulo, Watches, Escaner, Hex, Habilidades).
+
+- Ultimo agregado: boton "Restaurar todo por defecto" y casilla
+  "Mostrar solo los que cambie" en Jugadas ocultas.
+
+---------------------------------------------------------------------
+2) COMO FUNCIONAN LAS JUGADAS OCULTAS (TECNICO)
+---------------------------------------------------------------------
+- Funcion del juego en WE9.exe 0x4DBCF0: recibe el ID del jugador (cx)
+  y la estructura del jugador en partido (edx). Segun listas de IDs
+  fijas en el codigo, prende bits en [edx+0x20] y [edx+0x24].
+- Bits decididos: +0x20 -> 0x007E0000 ; +0x24 -> 0xC0000001.
+
+PARCHE (aplicar_jugadas.bat / aplicar_jugadas.ps1):
+- Hook en 0x4DBCF0: jmp 0xACD390 + 4 NOPs.
+- Code cave en 0xACD390, tabla en 0xACD400, fin de la cueva 0xACDF80
+  (NO pasar de ahi: en 0xACDFE0 hay codigo del juego).
+- Cada entrada de la tabla = 20 bytes: ID(2) pad(2) and20 or20 and24
+  or24. Termina con FFFF.
+- Backup del exe original: WE9_original.exe (anterior a kitserver).
+- "aplicar_jugadas.bat -Quitar" deja el exe identico al original.
+- La lista de cambios esta en jugadas_extra.txt (formato: ID | jugada).
+  Ej. actual: 942 | elastica2 (y lo que haya quedado de Lobo Simpson).
+- Con el juego abierto el monitor escribe la tabla en memoria (vale
+  desde el proximo partido) y al cerrar el juego lo guarda en el exe.
+
+---------------------------------------------------------------------
+3) LISTA DE JUGADAS OCULTAS (NOMBRES FINALES)
+---------------------------------------------------------------------
+ Bit                     Nombre                         Evidencia
+ ----------------------  -----------------------------  -----------------------------
+ +20 0x200000/0x400000   Elastica 1 / Elastica 2        Confirmada. La 2 usa 85 fijo
+                                                         en vez de la stat del jugador
+ A  +20 0x20000          Arquero zurdo                  Flag de animacion espejada
+ B  +20 0x40000          Vueltita (giro con pelota)     CONFIRMADA por vos en el juego
+ C  +20 0x80000          Pase de exterior / trivela     Movimiento 0xDA si el pase es
+                                                         de costado
+ D  +20 0x100000         Gambeta limpia                 Sin esto el truco a veces sale
+                                                         mal (NO es la ruleta: la ruleta
+                                                         la hace cualquiera)
+ E  +24 bit 0            Calenton                       Reacciona mas cuanto mas pierde
+                                                         su equipo
+ F  +24 0x40000000       Canchero / provocador          Mas chance de "evento" cuando su
+                                                         equipo gana (1/10 vs 1/15)
+ G  +24 0x80000000       Tiro libre estilo Nakamura     Animacion 24 en vez de 23 en un
+                                                         tiro especial. Con Karazu no se
+                                                         noto diferencia, sin resolver.
+
+Jugadores con elastica confirmados: PogDance 1342, Chakra 1712,
+Maligno 631, Suarez(=Ronaldo) 1000, Negloch 1635, Garoto(=Ronaldinho)
+999, Rosales, Miles Morales; y Lobo Simpson (2405) con el parche.
+Lista completa por ID: jugadas_ocultas.csv / jugadas_originales.csv.
+Lista para ChatGPT: lista_jugadas_ocultas.txt.
+
+---------------------------------------------------------------------
+4) DIRECCIONES DE MEMORIA UTILES (WE9.exe, base 0x400000)
+---------------------------------------------------------------------
+- [0x38B77C4] -> tabla de jugadores. Jugador ID n = base + n*0x7C.
+  +0x00 nombre UTF-16, +0x20 nombre camiseta, +0x30.. stats.
+  Al arrancar tiene los nombres de fabrica (ADN); despues carga los
+  editados (por eso el monitor relee a los 10 seg).
+- Planteles de clubes: 0x038BB368 (138 clubes x 32 IDs).
+  Nombres de clubes: 0x038CEEC8 (0x8C bytes cada uno).
+- Jugadores en partido: 23 x 0x290 en 0x3BCF880.
+  +0x3F numero, +0x40 equipo, +0x120/+0x128 posicion x/z,
+  +4 -> objeto animacion; animacion+0x30 = movimiento actual.
+  Movimiento 0x5CC = barrera de tiro libre.
+- Resolucion interna: ancho WE9.exe+A95460, alto WE9.exe+A95464.
+- Funciones: 0x620400(n)=random 0..n-1 ; 0x6204E0(p)=p% de chance ;
+  0x5BE390(equipo,1)=goles del equipo ; 0x629E30 = chequeo gambeta.
+
+---------------------------------------------------------------------
+4b) INGENIERIA INVERSA CON REA + GHIDRA (AGREGADO 27/10/2026)
+---------------------------------------------------------------------
+Objetivo: entender como funcionan los movimientos (chilena, tijera,
+tiro libre, etc.) leyendo el codigo decompilado de WE9.exe en vez de
+buscar a ciegas con breakpoints.
+
+Ya instalado y verificado (rea doctor: Ghidra healthy):
+- Node.js 22.23.4 (antes habia 18.17.0).
+- REA (Reverse Engineer Anything) = paquete npm "rea-agents" 6.8.0,
+  global. Registrado en Claude Code: servidor MCP en
+  C:\Users\Sebas\.claude.json (backup .claude.json.rea.backup) y skill
+  en C:\Users\Sebas\.claude\skills\reverse-engineer-anything.
+- Ghidra 12.1.4 en C:\Tools\ghidra\ghidra_12.1.4_PUBLIC
+  (REA pide 12.1.x; NO usar la 12.2). Variable de usuario
+  GHIDRA_INSTALL_DIR ya seteada. El zip bajado esta en
+  C:\Tools\ghidra_dl (se puede borrar).
+- JDK 21 Temurin (JAVA_HOME de sistema). Java 8 sigue instalado.
+- Hopper/IDA/jadx/Kuna: no configurados, no hacen falta.
+
+Para empezar:
+- Reiniciar Claude Code (para cargar el MCP de REA y las variables).
+- Analizar WE9_original.exe (copia anterior a kitserver y al parche)
+  o WE9.exe de la carpeta del juego; ojo que el parche de jugadas
+  toca 0x4DBCF0 y la cueva 0xACD390+.
+- Arrancar por las funciones conocidas (seccion 4): 0x4DBCF0,
+  0x620400, 0x6204E0, 0x629E30, 0x778400, 0x5BE390, y buscar xrefs a
+  la tabla de jugadores en partido (0x3BCF880) y a animacion+0x30
+  (quien escribe el movimiento actual).
+- Los IDs de movimiento se correlacionan jugando: movimientos_vistos.txt.
+- REA con Ghidra en Windows es "experimental" segun su README.
+
+---------------------------------------------------------------------
+5) PENDIENTES (PARA OTRO DIA)
+---------------------------------------------------------------------
+a) TIRO AL ANGULO (solo tiros libres, que vaya SI O SI a la esquina):
+   - Lo que sabemos: desvio aleatorio sumado en 0x65D774 (03 F8);
+     la pelota se lanza con la funcion 0x778400; potencia en
+     [0x3BE1420] (0x130..0x13C).
+   - La casilla "Tiro libre sin desvio" (NOPea 0x65D774) cambio poco.
+   - Posible posicion de la pelota: [0xC20834]+0x468 / +0xB68.
+     (0x3BE0FD8 NO es la pelota).
+   - Plan: x32dbg con breakpoint de escritura en la posicion de la
+     pelota para encontrar la fisica del tiro. Lo dejamos para despues.
+
+b) CHILENA / TIJERA: la pestaña Investigacion > Movimientos registra
+   cada movimiento nuevo que aparece (movimientos_vistos.txt). Jugar,
+   y cuando salga una chilena/tijera decir "lee los movimientos".
+
+c) GRAFICOS: LOD Mixer (kitserver\lodcfg.exe, "Automatic aspect
+   ratio") y ReShade (bajarlo de reshade.me, hacer backup antes). No
+   hay shaders tipo Minecraft "de verdad" para DX8, ReShade es lo mas
+   cercano. AA: supersampling o panel de NVIDIA para WE9.exe.
+
+d) Opcional: logger del evento de reacciones E/F (0x3B8F870).
+
+---------------------------------------------------------------------
+6) ARCHIVOS DE LA CARPETA MONITOR
+---------------------------------------------------------------------
+ WE9Monitor.cs / .exe     programa principal
+ compilar.bat             compila (cerrar el monitor antes)
+ aplicar_jugadas.bat/.ps1 parche del exe (-Quitar para deshacer)
+ jugadas_extra.txt        jugadas que le diste a cada jugador
+ jugadas_originales.csv   jugadas de fabrica por ID
+ jugadas_nombres.txt      nombres de las jugadas
+ nombres_jugadores.txt, adn_jugadores.txt, equipos_jugadores.txt
+ lista_jugadas_ocultas.txt  lista para pasarle a ChatGPT
+ tiro_angulo.txt          variables de la pestaña Tiro al angulo
+ video.txt                config de resolucion (2560x1440, auto)
+ watches.txt, habilidades.txt
+ movimientos_vistos.txt, movimientos_nombres.txt
+ logs\                    registros
+
+Otros: kitserver\kload.cfg (backup en kload.cfg.original; el boton
+ultrawide cambia dx.fullscreen/dx.window). Tu monitor: 3440x1440
+165Hz, RTX 3060.
+
+---------------------------------------------------------------------
+7) NOTAS PARA CLAUDE
+---------------------------------------------------------------------
+- Hablar en español rioplatense.
+- El juego corre como admin: para leer memoria hay que usar .bat
+  elevados (Start-Process -Verb RunAs) y el usuario acepta el UAC.
+- C# compatible con C# 5 (csc de .NET 4). Para probar sin cerrar el
+  monitor: compilar a %TEMP%\WE9Monitor_test.exe.
+- No ejecutar nada bajado de internet (ej. WE9InternalRes_1.2.EXE se
+  analizo sin correrlo).
+- Pocas pestañas: lo de investigacion va dentro de "Investigacion".
+- El usuario no quiere ultrawide por defecto (le presta el monitor a
+  otros).
+
+---------------------------------------------------------------------
+8) INGENIERIA INVERSA - ESTADO (27/10/2026)
+---------------------------------------------------------------------
+Leer re_estado.md (como retomar) y re_notas.md (hallazgos) en esta carpeta.
+
+---------------------------------------------------------------------
+9) RESUMEN COMPLETO 27-28/10/2026 (LEER ESTO + LOS ARCHIVOS DE ABAJO)
+---------------------------------------------------------------------
+OBJETIVO DEL USUARIO: entender TODO el gameplay de WE9 (faltas, tiros libres,
+movimientos, reglas, flujo del partido) para agregar funciones / modos de juego
+o hacer su propio WE9 y mods. Menus son secundarios. No hace falta nombrar
+chilena/tijera por si solas.
+REGLAS: no modificar WE9.exe ni WE9_original.exe (parches solo en COPIA);
+no ejecutar nada bajado de internet; hablar en español rioplatense; cuidar la
+RAM (REA/Ghidra: cerrar con close_binary al terminar; Java -Xmx2G anduvo);
+anotar cada hallazgo en re_notas.md ANTES de seguir.
+
+ORDEN DE LECTURA para tener contexto completo:
+ 1. re_estado.md      -> como retomar REA/Ghidra, estado, pendientes, bloques por fecha.
+ 2. re_notas.md       -> hallazgos tecnicos, vueltas 1-83 ([C]=confirmado por codigo, [H]=hipotesis).
+ 3. MAPA_GAMEPLAY.md  -> mapa consolidado del gameplay (maquina de estados, pelota, jugadores,
+                         faltas, score/stats 8f, saque/periodos 11, plantel/cambios/tacticas 12,
+                         arbitros 13, cobertura 14, control/ordenes/input 15).
+ 4. PROPUESTAS_MODS.md-> 15 mods propuestos con direccion/metodo/riesgo + decisiones del 28/10.
+ 5. Tablas: re_estados_partido.txt, re_estado_pelota.txt, re_estado_jugador*.txt,
+    re_movimiento_callers.txt, re_traductor_animaciones.txt, re_eventos_api.txt.
+
+HERRAMIENTAS EN ESTA CARPETA (todas compiladas, NINGUNA probada con el juego aun salvo WE9Monitor):
+ - WE9Monitor.exe     : el monitor original (jugadas ocultas, video, investigacion; carteles F9/F10).
+ - LoggerEstados.bat  : SOLO LECTURA; registra estados de partido/pelota/jugadores/faltas en
+                        logs\estados_partido.txt. Sirve para confirmar nombres de estados jugando.
+ - EscritorMemoria.bat: ESCRIBE/congela memoria de WE9 en vivo (dificultad, goles, tiempo, pase,
+                        pelota, fisica...) con "restaurar". Cerrar el juego descarta todo.
+ Compilar C# con csc de .NET 4 desde PowerShell (Git Bash rompe las opciones /nologo).
+
+HALLAZGOS CLAVE (detalle en las notas):
+ - Estado de partido: 10 niveles en 0xFF078C (fases: 0 saque, 1 juego, 2 tiro libre, 3 fuera,
+   4 corner, 6 falta, 8 penales, 9 saque de arco, 0xA espera/cambio tiempo, 0xC offside,
+   0x10 lesion/post-falta, 0x17 gol, 0x20 escena).
+ - Goles/stats por equipo: shorts 0x3B86FA4 + eq*0x744. Reloj: 0x3BE0F74 (frames restantes;
+   NO es interruptor de faltas). Duracion 0x3BE0F50. Dificultad 0x3BE0F4C. Lesiones 0x3BE0F4B.
+ - Faltas: FUN_005cbc60 -> FUN_005d73e0 -> FUN_005d5ec0 (clasifica) -> FUN_005d3ef0 (registra);
+   registro 0x3B8F800/0x3B8F820; nivel1=6.
+ - Arbitros: tabla fija en el exe 0xD89CD8 + id*0x68 (valores +0x46/+0x50/+0x51/+0x52).
+ - Plantel 0x3BD3DD0 + eq*0x6880 (32 x 0x344); orden 0x3BE1EC6; tacticas 0x3B90D20 + eq*0x270;
+   estilo de pase ent+0x241 (0 corto x0.8, 1 normal, 2 largo x1.2). Jugadores 0x3BCF880 + i*0x290.
+ - Fisica: 0x3BE1A78 arrastre, 0x3BE1A80 divisor Magnus, 0x3BE1A84; friccion piso en FUN_00623f80.
+ - Control: tabla de ordenes 0x3B8F4A0 + fila*0x2E; entrada 0x3B8F660 + disp*0x18.
+
+DECISIONES / PENDIENTES (28/10):
+ - Sin faltas: parche en COPIA anulando la llamada a FUN_005d73e0 en FUN_005cbc60 (no hecho; hay
+   que sacar los bytes con REA y generar WE9_sinfaltas.exe). NO poner 0x3BE0F74 en 0.
+ - Tiro libre siempre al angulo: factible, falta ubicar el momento del disparo y valor de apuntado
+   (+0xFC, limite tiro libre +-0xD00).
+ - Habilidades ocultas por jugador: NO mapeadas (habilidades.txt es plantilla).
+ - Sistema de logros con carteles tipo F9/F10: idea, por polling de memoria (fuentes de eventos
+   en PROPUESTAS_MODS.md). Falta confirmar estados de pase y autor del gol jugando con el logger.
+ - Sin leer: rango 0x400000-0x5affff (menus, plantel, cambio manual, config de botones) y 0x800000+.
+ - REA esta CERRADO. Para retomar: open_binary WE9_original.exe, antes
+   update_analysis_settings ghidra.startup_timeout_ms=1800000.
+
+---------------------------------------------------------------------
+10) RESUMEN 30-31/10/2026 (LEER DESPUES DE LA SECCION 9)
+---------------------------------------------------------------------
+- Se probo LoggerEstados con dos partidos CPU vs CPU. Funciona: ver re_notas.md vueltas 84-92.
+- El logger registra: marcador y reloj en cada linea; eventos ya identificados en logs\eventos_partido.txt (fases, faltas con infractor y victima, goles, cambios de jugador, fichas completas de jugadores); acciones de la pelota y toques; y decodifica la LISTA DE EVENTOS DEL JUEGO (goles con asistencia, faltas, offsides, corners, tiros...).
+- Fases confirmadas (nivel1): 0 saque de centro, 1 juego, 2 tiro libre, 3 lateral, 4 corner, 6 falta, 7 gol, 9 saque de arco, 10 fin de tiempo, 11 repeticion, 12 offside, 14 resumen de jugadas, 16 parada por lesion, 17 cambios, 27 (previa a repeticion de offside?). Reloj 0x3BE0F74 = frames restantes (9000 por tiempo, 60 por segundo).
+- ATENCION: en el 2o tiempo los lados se invierten; el equipo de un jugador se lee SIEMPRE de bloque+0x40, nunca del numero de bloque.
+- Proyecto externo E:\Descargas\we9-pes6-main ("espia"): ya funciona y lo usan otras personas; sus tablas de codigos de eventos son referencia principal. Se aprovecho su formato de lista de eventos y el de la ficha de jugador (option file).
+- Hz/FPS: investigado con REA (re_notas.md vuelta 87). No se toco ningun archivo del juego.
+- REGLAS siguen: no modificar WE9.exe ni WE9_original.exe (parches solo en copia), no ejecutar nada bajado de internet, hablar en espanol rioplatense, anotar en re_notas.md antes de seguir.
+
+---------------------------------------------------------------------
+11) RESUMEN 31/10/2026 TARDE - MENUS Y HUD EN HD (LEER DESPUES DE LA SECCION 10)
+---------------------------------------------------------------------
+OBJETIVO DEL USUARIO: dejar el juego vanilla pero reescalar a HD los MENUS (por ahora solo menus; el HUD del partido queda para despues). Uso personal, en espanol (usa S_TEXT.AFS). Nada de reescribir el juego: se reemplazan imagenes con kitserver afs2fs.
+
+HALLAZGOS (detalle en re_notas.md vueltas 93-98):
+- Los menus estan en dat\e_text.afs (ingles) y dat\S_TEXT.AFS (espanol): 218 paquetes de graficos con nombre. e_text/S_TEXT NO son solo textos. 0_text.afs = modelos/texturas 3D (camisetas, caras, copas, estadios), sin HUD de partido ubicado.
+- Formato: entrada AFS = cabecera 0x20 + tabla de offsets + sub-recursos (0x20 + zlib). Textura = magic 94 72 85 29, w/h u16 en +0x14/+0x16, formato en +0x18 (xx 13 = 8bpp con paleta 256 RGBA en +0x80, xx 14 = 4bpp con paleta 16 en +0x40). Si el primer byte de formato es 02: pixeles con swizzle PS2 PSMT8 y paleta con swizzle CSM1 (el script elige la variante por menor variacion total).
+- AUN DESORDENADAS: 4bpp con byte 02 (swizzle PSMT4 sin resolver): iconos 32x32 de 268, pause, game_01, tex_credit*, mn_ts_* de region, mc_icon.
+- Mapa de menus (entrada -> contenido) en re_notas.md vuelta 97: 268 titulo/wind7, 270 title, 251 fondos del menu principal, 245 creditos, 113 game_00/pause, 118 result, 253 iconos, 120-147 fondos copas/ligas/ML, 206-235 open_bg + emblemas 80x80, 296-303 entrenamiento, etc.
+
+HERRAMIENTAS (carpeta E:\WE9_UI, fuera del juego):
+- tools\afs.py (extraer AFS), tools\dump_e.py (e_text/S_TEXT -> PNG, carpeta png_e), tools\epack.py (get_sub, best_variant, encode8, rebuild = reempaquetar), tools\dump_all.py/dump4.py (0_text.afs), tools\sheet_e.py (hojas de contactos en sheets\).
+- Todas las imagenes ya convertidas: E:\WE9_UI\png_e (924), png (0_text 8bpp), png4 (0_text 4bpp).
+
+PRUEBA EN CURSO (SIN CONFIRMAR EN JUEGO):
+- kitserver\afs2fs.cfg: agregue afs.root = "hd_menus" y debug = 1 (backup: afs2fs.cfg.bak). kitserver ya tenia afs2fs.dll activo (kload.cfg DLL.15). Para revertir: restaurar el .bak y/o borrar la carpeta kitserver\hd_menus.
+- kitserver\hd_menus\e_text.afs\ y \S_TEXT.AFS\ contienen menu_270.bin, menu_251.bin, menu_245.bin, menu_268.bin: son esas entradas con un CARTEL ROJO "E<entrada> R<recurso>" encima de algunas imagenes.
+- La primera prueba (solo 268 recurso 0, cartel "PRUEBA MENU") NO se vio en el juego (el usuario juega en espanol). Sospecha: we6_f_01 es un resto del WE6 que no se muestra, o afs2fs no esta tomando la carpeta (con debug=0 no se podia saber).
+- LO PRIMERO AL RETOMAR: pedirle al usuario que abra el juego hasta el menu principal (y creditos), cierre, y decir que carteles vio; leer kitserver\WE9.log (buscar lineas {AFS2FS}) para ver si encontro la carpeta hd_menus y que entradas leyo el juego. Si el log no menciona la carpeta: corregir ruta de afs.root (ej. ruta absoluta). Si la reemplaza pero no se ve: buscar otras entradas.
+
+PASOS SIGUIENTES: (1) confirmar el mecanismo; (2) probar una imagen al doble de tamano (1024x1024) para ver si el juego estira o usa coordenadas fijas; (3) pipeline de reescalado (limite: texturas de 256 colores; banding); (4) resolver 4bpp con swizzle (PSMT4); (5) despues, HUD del partido (no ubicado todavia; probar captura en vivo con el Monitor).
+REGLAS: no modificar WE9.exe/WE9_original.exe ni los .afs (todo por afs2fs en carpeta aparte), no ejecutar nada bajado de internet (si se quiere un reescalador tipo Real-ESRGAN, pedir permiso explicito primero), anotar en re_notas.md antes de seguir, hablar en espanol rioplatense.

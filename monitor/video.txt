@@ -1,0 +1,4 @@
+ancho=3440
+alto=1440
+auto=1
+ultrawide=1

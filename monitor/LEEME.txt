@@ -1,0 +1,25 @@
+WE9 MONITOR
+===========
+
+USO
+1. Abre settings.exe y pon el juego en modo ventana (en pantalla completa el
+   overlay no se ve encima del juego).
+2. Abre WE9Monitor.exe. Abre el juego solo y queda vigilando.
+3. "Probar aviso" muestra un aviso de prueba para comprobar que el overlay se ve.
+4. Todo queda guardado en la carpeta logs\ (un archivo por sesión).
+
+CÓMO ENCONTRAR UNA DIRECCIÓN (ejemplo: remates) CON CHEAT ENGINE
+1. Abre el juego y empieza un partido. Abre Cheat Engine y elige el proceso WE9.exe.
+2. Pausa el partido y mira en estadísticas cuántos remates lleva tu equipo (ej: 0).
+3. En Cheat Engine: Value Type = 4 Bytes, escribe 0 y pulsa "First Scan".
+4. Patea al arco, mira el nuevo número (ej: 1), escríbelo y pulsa "Next Scan".
+5. Repite hasta que queden pocas direcciones.
+6. Si la dirección aparece en verde es fija: Cheat Engine la muestra como
+   "WE9.exe+XXXXXX". Cópiala en watches.txt.
+   Si aparece en negro cambia entre partidos: haz clic derecho en la dirección y
+   elige "Pointer scan for this address" para encontrar una cadena de punteros.
+7. En el monitor pulsa "Recargar watches.txt".
+
+Para la elástica / habilidades: entra al editor de jugadores, cambia una
+habilidad especial de un jugador y busca qué byte cambia, igual que arriba.
+Después vigila ese byte con condición "cambia" y aviso "log".

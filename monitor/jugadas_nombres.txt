@@ -1,0 +1,11 @@
+﻿# Nombre que se muestra para cada jugada:  clave | nombre
+# Cuando descubras qué es una jugada oculta, cámbiale el nombre aquí.
+elastica | Elástica
+elastica2 | Elástica 2
+oculta_020000 | Arquero zurdo (saca y despeja con la zurda)
+oculta_040000 | Vueltita (giro con pelota)
+oculta_080000 | Pase de exterior / trivela
+oculta_100000 | Gambeta limpia (no pierde la pelota en el truco)
+24+00000001 | Calentón (protesta y se enoja si pierde)
+24+40000000 | Canchero / provocador (cuando gana)
+24+80000000 | Tiro libre estilo Nakamura

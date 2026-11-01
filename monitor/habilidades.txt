@@ -1,0 +1,21 @@
+# ============================================================
+#  WE9 Monitor - habilidades de los jugadores
+# ============================================================
+#  Cada habilidad es un bit dentro de los datos de un jugador.
+#
+#  nombre | offset (hex, desde el inicio del jugador) | bit (0-7)
+#
+#  Cómo encontrar el offset y el bit:
+#  1. En el Escáner busca el nombre de un jugador que tenga la habilidad
+#     (tipo "Texto" o "Texto UTF-16") y ábrelo en Hex.
+#  2. Ubica el inicio de sus datos y pulsa "Guardar A".
+#  3. Haz lo mismo con un jugador que NO la tenga y pulsa "Comparar con A".
+#     O mejor: cámbiale la habilidad en el editor del juego y mira qué bit
+#     se pone en rojo.
+#  4. Anota aquí la distancia desde el inicio (+0x..) y el número de bit.
+#
+#  Quita el # de la línea cuando tengas los valores reales.
+# ============================================================
+
+# Elástica       | 5A | 3
+# Regate         | 58 | 0

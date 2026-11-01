@@ -1,0 +1,36 @@
+# ============================================================
+#  WE9 Monitor - valores de memoria a vigilar
+# ============================================================
+#  Una línea por valor, 6 columnas separadas por |
+#
+#  nombre | dirección | tipo | condición | mensaje | aviso
+#
+#  dirección:  WE9.exe+3BA000        (dirección fija dentro del juego)
+#              WE9.exe+3BA000, 10, 4 (cadena de punteros, como en Cheat Engine)
+#              0x0123ABCD            (dirección absoluta)
+#  tipo:       byte | short | int | float
+#  condición:  cambia | aumenta | disminuye | =N   (=N: cuando pasa a valer N)
+#  mensaje:    texto libre. Puede usar {valor} {anterior} {nombre}
+#  aviso:      log    -> solo se escribe en el log
+#              popup  -> log + aviso en pantalla cada vez
+#              logro  -> log + aviso dorado UNA sola vez (queda guardado en
+#                        logros_desbloqueados.txt; borra la línea para repetirlo)
+#
+#  Las líneas que empiezan con # no se leen. Quita el # cuando tengas la
+#  dirección real (se encuentra con Cheat Engine, ver LEEME.txt).
+# ============================================================
+
+# Remates local      | WE9.exe+000000 | int  | aumenta | ¡REMATE!            | popup
+# Goles local        | WE9.exe+000000 | int  | aumenta | ¡GOOOL! Van {valor} | popup
+# Primer gol         | WE9.exe+000000 | int  | =1      | Tu primer gol       | logro
+# Habilidad jugador  | WE9.exe+000000 | byte | cambia  | {anterior} -> {valor} | log
+
+# --- Candidatos de la elástica (evento 2, 26/10) --- (descartados: la elastica depende del ID del jugador)
+# Cand A98534 | WE9.exe+A98534 | int | cambia | {anterior} -> {valor} | log
+# Cand A98060 | WE9.exe+A98060 | int | cambia | {anterior} -> {valor} | log
+# Cand A980A4 | WE9.exe+A980A4 | int | cambia | {anterior} -> {valor} | log
+# Cand A980AC | WE9.exe+A980AC | int | cambia | {anterior} -> {valor} | log
+# Cand A980C0 | WE9.exe+A980C0 | int | cambia | {anterior} -> {valor} | log
+# Cand A98344 | WE9.exe+A98344 | int | cambia | {anterior} -> {valor} | log
+# Cand A98524 | WE9.exe+A98524 | int | cambia | {anterior} -> {valor} | log
+# Cand A9D9B0 | WE9.exe+A9D9B0 | int | cambia | {anterior} -> {valor} | log
